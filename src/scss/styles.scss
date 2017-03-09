@@ -15,7 +15,20 @@ input {
 }
 
 #app-container {
-	width: 90%;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.user-data{
+	width: 40%;
+	padding-left: 7%;
+}
+
+.user-data img {
+	width: 100%;
+}
+
+.stack{
+	list-style: none;
 }
