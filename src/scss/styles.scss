@@ -6,12 +6,14 @@ body{
 	font-family: Helvetica, Arial, sans-serif;
 }
 
-h1 {
-
+input {
+	width: 400px;
 }
 
-input {
-
+nav .fa {
+	color: #fff;
+	padding:10px;
+	vertical-align: middle;
 }
 
 #app-container {
@@ -21,14 +23,24 @@ input {
 }
 
 .user-data{
-	width: 40%;
+	width: 100%;
 	padding-left: 7%;
+	display: block;
 }
 
 .user-data img {
 	width: 100%;
 }
 
-.stack{
+.user-repos{
+	width: 62%;
+	float: right;
+	padding: 4%
+}
+
+.profile {
+	width: 30%;
 	list-style: none;
+	float: left;
+	padding: 4%;
 }

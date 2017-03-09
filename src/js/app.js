@@ -1,5 +1,5 @@
 // kudos to Avery for holding my hand and helping me get caught up on this one
-import import {githubApiKey} from '../../secrets.js'
+import {githubApiKey} from '../../secrets.js'
 import $ from 'jquery'
 
 let forEach = function(arr,cb){
@@ -8,7 +8,7 @@ let forEach = function(arr,cb){
   }
 }
 
-let userDataEl = document.querySelector('.user-data.u_column-container')
+let userDataEl = document.querySelector('.user-data.column-container')
 let questEl = document.querySelector('.quest')
 let userLogin = 'cr0wbait'
 let grabUserData = $.getJSON(`https://api.github.com/users/${userLogin}`)
@@ -30,23 +30,25 @@ questEl.addEventListener('keydown', function(evt){
   }
 })
 
-function userHtmlShape(profileRA, repoRa){
+function userHtmlShape(profileRA, repoRA){
   profileDataHtml = `
-  <ul class='profile_look stack'>
-    <li><img class='profile_pic' src='${profileRA.avatar_url}'></li>
-    <li><h3 class='profile_name'>${profileRA.name}</h3></li>
-    <li><h4 class='profile_usen'>${profileRA.login}</h4></li>
-    <li><p class='profile_info'>${profileRA.bio}</p></li>
-    <li><button class='btn profile_flwbtn'>Unfollow</button></li>
-    <li><a href='#' class = 'blockreport'>Block or report user</a></li>
-  </ul>
-  <hr/>
-  <ul class='profile_contact stack'>
-    <li><i class="fa fa-users" aria-hidden="true"></i><p>@${profileRA.company}</p></li>
-    <li><i class="fa fa-map-marker" aria-hidden="true"></i><p>${profileRA.location}</p></li>
-    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href='#'>${profileRA.email}</a></li>
-    <li><i class="fa fa-link" aria-hidden="true"></i><a href='#'>${profileRA.blog}</a></li>
-  </ul>
+  <div class='profile column-container'
+    <ul class='profile_look stack'>
+      <li><img class='profile_pic' src='${profileRA.avatar_url}'></li>
+      <li><h3 class='profile_name'>${profileRA.name}</h3></li>
+      <li><h4 class='profile_usen'>${profileRA.login}</h4></li>
+      <li><p class='profile_info'>${profileRA.bio}</p></li>
+      <li><button class='btn profile_flwbtn'>Unfollow</button></li>
+      <li><a href='#' class = 'blockreport'>Block or report user</a></li>
+    </ul>
+    <hr/>
+    <ul class='profile_contact stack'>
+      <li><i class="fa fa-users" aria-hidden="true"></i><p>@${profileRA.company}</p></li>
+      <li><i class="fa fa-map-marker" aria-hidden="true"></i><p>${profileRA.location}</p></li>
+      <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href='#'>${profileRA.email}</a></li>
+      <li><i class="fa fa-link" aria-hidden="true"></i><a href='#'>${profileRA.blog}</a></li>
+    </ul>
+  </div>
   `
   forEach(repoRA, function(repoDataObj){
     repoDataHtml += `
@@ -63,7 +65,7 @@ function userHtmlShape(profileRA, repoRa){
   })
 
   pageHtml = profileDataHtml + `
-    <div class='user-repos'>
+    <div class='user-repos column-container'>
       <div class='repo-nav column-container'>
         <h3>Overview</h3>
         <h3>Repos <span>${profileRA.public_repos}</span></h3>
@@ -80,9 +82,9 @@ function userHtmlShape(profileRA, repoRa){
     <hr/>
   ` + repoDataHtml + `</div>`
 
-  userDataEl.innerHTML = pageHTML
+  userDataEl.innerHTML = pageHtml
 }
 
 $.when(grabUserData, grabUserRepos).then(function(userData, userRepos){
-  htmlShape = userHtmlShape(userData[0], userRepos[0])
+  let htmlShape = userHtmlShape(userData[0], userRepos[0])
 })
