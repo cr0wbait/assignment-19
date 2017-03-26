@@ -11,8 +11,16 @@ let forEach = function(arr,cb){
 let userDataEl = document.querySelector('.user-data.column-container')
 let questEl = document.querySelector('.quest')
 let userLogin = 'cr0wbait'
-let grabUserData = $.getJSON(`https://api.github.com/users/${userLogin}`)
-let grabUserRepos = $.getJSON(`https://api.github.com/users/${userLogin}/repos`)
+let nowRoute = window.location.hash.slice(1)
+let grabUserData = $.getJSON(`https://api.github.com/users/${nowRoute}?access_token=${githubApiKey}`)
+let grabUserRepos = $.getJSON(`https://api.github.com/users/${nowRoute}/repos?access_token=${githubApiKey}`)
+
+
+// var currentRoute = window.location.hash.slice(1);
+//  var userFetch = $.getJSON(`http://api.github.com/users/${currentRoute}?access_token=${githubApiKey}`)
+//  var repoFetch = $.getJSON(`http://api.github.com/users/${currentRoute}/repos?access_token=${githubApiKey}`)
+//
+//  $.when(userFetch, repoFetch).then(function(userData, repoData){
 
 let pageHtml = ''
 let profileDataHtml = ''
@@ -21,9 +29,16 @@ let repoDataHtml = ''
 questEl.addEventListener('keydown', function(evt){
   if(evt.keyCode === 13){
     let questStr = questEl.value
-    window.location.hash = questStr
-    userLogin = questStr
+    if (window.location.hash === ''){
+      window.location.hash = 'cr0wbait'
+    } else {
+      window.location.hash = questStr
+    }
+    nowRoute = questStr
 
+    let nowRoute = window.location.hash.slice(1)
+    let grabUserData = $.getJSON(`https://api.github.com/users/${nowRoute}?access_token=${githubApiKey}`)
+    let grabUserRepos = $.getJSON(`https://api.github.com/users/${nowRoute}/repos?access_token=${githubApiKey}`)
     $.when(grabUserData, grabUserRepos).then((data1, data2)=>{
       let htmlShape = userHtmlShape(data1[0], data2[0])
     })
